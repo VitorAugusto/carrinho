@@ -28,8 +28,6 @@ export function ThemeProvider({
   children,
   defaultTheme = "light",
   storageKey = "carrinho-theme",
-  attribute = "data-theme",
-  disableTransitionOnChange = false,
   ...props
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(
