@@ -9,6 +9,7 @@ type ThemeProviderProps = {
   defaultTheme?: Theme
   storageKey?: string
   attribute?: string
+  enableSystem?: boolean
   disableTransitionOnChange?: boolean
 }
 
