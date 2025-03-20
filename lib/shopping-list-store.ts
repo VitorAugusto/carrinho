@@ -16,6 +16,7 @@ interface ShoppingListStore {
   removeItem: (id: string) => void
   toggleItem: (id: string) => void
   clearList: () => void
+  editItem: (id: string, updates: Partial<Omit<ShoppingListItem, "id">>) => void
 }
 
 // Generate UUID that works across all browsers including iOS Safari
@@ -50,6 +51,14 @@ export const useShoppingListStore = create<ShoppingListStore>()(
         set((state: ShoppingListStore) => ({
           items: state.items.map((item: ShoppingListItem) => 
             item.id === id ? { ...item, completed: !item.completed } : item
+          )
+        }))
+      },
+      
+      editItem: (id: string, updates: Partial<Omit<ShoppingListItem, "id">>) => {
+        set((state: ShoppingListStore) => ({
+          items: state.items.map((item: ShoppingListItem) => 
+            item.id === id ? { ...item, ...updates } : item
           )
         }))
       },
