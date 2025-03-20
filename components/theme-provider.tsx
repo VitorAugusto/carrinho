@@ -28,12 +28,20 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 export function ThemeProvider({
   children,
   defaultTheme = "light",
-  storageKey = "carrinho-theme",
+  storageKey = "theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (typeof window !== "undefined" && localStorage.getItem(storageKey) as Theme) || defaultTheme
-  )
+  const [theme, setTheme] = useState<Theme>(defaultTheme)
+  const [mounted, setMounted] = useState(false)
+
+  // Initialize theme from localStorage after component mounts
+  useEffect(() => {
+    const savedTheme = localStorage.getItem(storageKey) as Theme
+    if (savedTheme) {
+      setTheme(savedTheme)
+    }
+    setMounted(true)
+  }, [storageKey])
 
   useEffect(() => {
     const root = window.document.documentElement
@@ -50,6 +58,7 @@ export function ThemeProvider({
     },
   }
 
+  // Return provider with value that will be consistent between server and client
   return (
     <ThemeProviderContext.Provider {...props} value={value}>
       {children}

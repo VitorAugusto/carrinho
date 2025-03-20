@@ -79,9 +79,16 @@ export function ShoppingList() {
                 name="quantity"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Qtd 🔢</FormLabel>
+                    <FormLabel>Quantidade 🔢</FormLabel>
                     <FormControl>
-                      <Input type="number" min={1} step={1} {...field} />
+                      <Input 
+                        type="number" 
+                        inputMode="numeric" 
+                        pattern="[0-9]*" 
+                        min={1} 
+                        step={1} 
+                        {...field} 
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

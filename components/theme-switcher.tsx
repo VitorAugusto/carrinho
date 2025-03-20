@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { Moon, Sun } from "lucide-react"
 
 import { useTheme } from "@/components/theme-provider"
@@ -7,6 +8,16 @@ import { Switch } from "@/components/ui/switch"
 
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  // Only show the theme switcher after mounting to avoid hydration mismatch
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return <div className="flex items-center gap-2 h-4"></div> // Empty placeholder with same height
+  }
 
   return (
     <div className="flex items-center gap-2">
